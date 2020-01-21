@@ -21,14 +21,14 @@ function ConversionPart3() {
     }
     var bottomDecToConvert=0+(floatToConvert.substring(count,floatToConvert.length));
     var bottomDecConvert="*";
-    while (bottomDecToConvert!=0 && bottomDecConvert.length<(24-topDec.length)){
+    while ((bottomDecToConvert!=0 && bottomDecToConvert!=null) && (bottomDecConvert+"").length<(24-(""+topDec).length)){
       bottomDecToConvert=bottomDecToConvert*2;
       if (bottomDecConvert=="*"){
         bottomDecConvert=(""+bottomDecToConvert).substring(0,1);
-        bottomDecToConvert=(""+bottomDecToConvert)-bottomDecConvert;
+        bottomDecToConvert=(""+bottomDecToConvert)-(bottomDecConvert+"").substring((bottomDecConvert+"").length-1,(bottomDecConvert+"").length);
       }else{
-        bottomDecConvert=(""+bottomDecToConvert).substring(0,1);
-        bottomDecToConvert=(""+bottomDecToConvert)-bottomDecConvert;
+        bottomDecConvert=bottomDecConvert+(""+bottomDecToConvert).substring(0,1);
+        bottomDecToConvert=(""+bottomDecToConvert)-(bottomDecConvert+"").substring((bottomDecConvert+"").length-1,(bottomDecConvert+"").length);
       }
     }
     count=0;
@@ -39,11 +39,12 @@ function ConversionPart3() {
       combo=(topDec+"".substring(1,(topDec+"").length));
   }
   var expo = ((topDec+"").substring(1,(topDec+"").length)).length;
-  if (topDec==0){
+  if (topDec==0||topDec==null){
     while (count<bottomDecConvert.length && bottomDecConvert.substring(count,count+1)!=1){
       count=count+1;
     }
     expo=(count+1)*-1;
+    combo=(bottomDecConvert+"").substring(1,24);
   }
     expo=expo+127;
     var expo = convertFromBase10(expo,2);
