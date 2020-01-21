@@ -15,7 +15,7 @@ function ConversionPart3() {
     var topDec=convertFromBase10(floatToConvert.substring(start,count+1),2);
     if (floatToConvert<0){
       var sign=1;
-      topDec=twosComp3(topDec);
+      //topDec=twosComp3(topDec);
     }else{
       var sign=0;
     }
@@ -33,64 +33,30 @@ function ConversionPart3() {
     }
     count=0;
     var expo = ((""+topDec).length)-1;
-    if (topDec==0){
-      while (count<bottomDecConvert.length && bottomDecConvert.substring(count,count+1)!=1){
-        count=count+1;
-      }
-      expo=(count+1)*-1;
-    }
     if (bottomDecConvert!="*"){
-      var combo=topDec+''+bottomDecConvert;
+      var combo=((topDec+"").substring(1,(topDec+"").length))+''+bottomDecConvert;
     }else{
-      combo=topDec;
+      combo=(topDec+"".substring(1,(topDec+"").length));
+  }
+  var expo = ((topDec+"").substring(1,(topDec+"").length)).length;
+  if (topDec==0){
+    while (count<bottomDecConvert.length && bottomDecConvert.substring(count,count+1)!=1){
+      count=count+1;
     }
-    combo=(""+combo).substring(1,(""+combo).length);
-    var expo = ((""+combo).length)-1;
-    expo=expo+128;
+    expo=(count+1)*-1;
+  }
+    expo=expo+127;
     var expo = convertFromBase10(expo,2);
     while (expo.length<8){
       expo=0+""+expo;
     }
-    while (combo.length!=23){
+    while (combo.length<23){
       combo=combo+""+0;
     }
-    var output32BitScientificNotation = combo+""+expo+''+sign;
+    var output32BitScientificNotation = sign+""+expo+''+combo;
 
   }
   FormatAndShowOutput([floatToConvert, output32BitScientificNotation], 3);
-}
-
-function twosComp3(base2){
-  while(base2.length<24){
-    base2=0+""+base2;
-  }
-  var output=""
-  var nextDig=""
-  while (base2.length>0){
-    nextDig=base2.substring(0,1);
-    if (nextDig==1){
-      nextDig=0
-    }else{
-      nextDig=1
-    }
-    if (output==null){
-      output=nextDig;
-    }else{
-      output=output+nextDig;
-    }
-    base2=base2.substring(1,base2.length);
-  }
-  var count=output.length;
-  do{
-    nextDig=output.substring(count-1,count)
-    if (nextDig==0){
-      output=output.substring(0,count-1)+""+1+""+output.substring(count,output.length);
-    }else{
-      output=output.substring(0,count-1)+""+0+""+output.substring(count,output.length);
-    }
-    count=count-1;
-  }while(nextDig!=0 && count>0)
-  return output;
 }
 
 // If you dare read a comment before starting to program..
