@@ -31,8 +31,8 @@ function ConversionPart3() {
         bottomDecToConvert=(""+bottomDecToConvert)-bottomDecConvert;
       }
     }
-    var expo = (topDec.length)-1;
     count=0;
+    var expo = ((""+topDec).length)-1;
     if (topDec==0){
       while (count<bottomDecConvert.length && bottomDecConvert.substring(count,count+1)!=1){
         count=count+1;
@@ -42,14 +42,10 @@ function ConversionPart3() {
     if (bottomDecConvert!="*"){
       var combo=topDec+''+bottomDecConvert;
     }else{
-      var combo=topDec;
+      combo=topDec;
     }
-    var nextDig = combo.substring(0,1);
-    while (nextDig!=1){
-      combo=combo.substring(1,combo.length);
-      nextDig=combo.substring(0,1);
-    }
-    combo=combo.substring(1,combo.length);
+    combo=(""+combo).substring(1,(""+combo).length);
+    var expo = ((""+combo).length)-1;
     expo=expo+128;
     var expo = convertFromBase10(expo,2);
     while (expo.length<8){
